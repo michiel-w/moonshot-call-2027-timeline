@@ -2,7 +2,6 @@
   'use strict';
 
   var SVG_NS = 'http://www.w3.org/2000/svg';
-  var DAY_MS = 110;
   var MS_PER_DAY = 24 * 60 * 60 * 1000;
 
   var START = Date.UTC(2026, 11, 7); // 07/12/2026 — opening of Call 2027
@@ -32,6 +31,8 @@
       text: 'Results of the Later Stage Innovation track are announced. These proposals are evaluated by the Flemish Government.' }
   ];
 
+  var IMAGE_POINTS_UP = true; // set false if assets/rocket.png points along +x instead of up
+
   var path = document.getElementById('trajectory');
   var progress = document.getElementById('progress');
   var phasesG = document.getElementById('phases');
@@ -42,8 +43,6 @@
   var ttDate = tooltip.querySelector('.tt-date');
   var ttTitle = tooltip.querySelector('.tt-title');
   var ttText = tooltip.querySelector('.tt-text');
-  var playPauseBtn = document.getElementById('playPause');
-  var slider = document.getElementById('daySlider');
   var currentDateEl = document.getElementById('currentDate');
 
   var totalDays = Math.round((END - START) / MS_PER_DAY);
@@ -63,6 +62,25 @@
     var d = new Date(ts);
     return pad(d.getUTCDate()) + '/' + pad(d.getUTCMonth() + 1) + '/' + d.getUTCFullYear();
   }
+  function todayUtc() {
+    var n = new Date();
+    return Date.UTC(n.getUTCFullYear(), n.getUTCMonth(), n.getUTCDate());
+  }
+  function guardImage(src, imageEl, fallbackEl) {
+    var test = new Image();
+    test.onload = function () {
+      imageEl.style.display = '';
+      fallbackEl.style.display = 'none';
+    };
+    test.onerror = function () {
+      imageEl.style.display = 'none';
+      fallbackEl.style.display = '';
+    };
+    test.src = src;
+  }
+
+  guardImage('assets/moon.png', document.getElementById('moonImage'), document.getElementById('moonFallback'));
+  guardImage('assets/rocket.png', document.getElementById('rocketImage'), document.getElementById('rocketFallback'));
 
   // Stars
   for (var i = 0; i < 90; i++) {
@@ -152,45 +170,20 @@
     if (openAnchor) positionTooltip(openAnchor);
   });
 
-  // Rocket animation, one day per tick
-  var current = 0;
-  var playing = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
+  // Rocket position from today's real date
   function update() {
-    var ts = START + current * MS_PER_DAY;
+    var today = todayUtc();
+    var current = Math.max(0, Math.min(totalDays, Math.floor((today - START) / MS_PER_DAY)));
     var len = (current / totalDays) * pathLength;
     var p = path.getPointAtLength(len);
     var p2 = path.getPointAtLength(Math.min(pathLength, len + 2));
     var angle = Math.atan2(p2.y - p.y, p2.x - p.x) * 180 / Math.PI;
+    if (IMAGE_POINTS_UP) angle += 90;
     rocket.setAttribute('transform', 'translate(' + p.x + ',' + p.y + ') rotate(' + angle + ')');
     progress.setAttribute('stroke-dasharray', len + ' ' + (pathLength + 10));
-    currentDateEl.textContent = formatDate(ts);
-    slider.value = String(current);
-  }
-  function setPlaying(value) {
-    playing = value;
-    playPauseBtn.textContent = playing ? '⏸ Pause' : '▶ Play';
-    playPauseBtn.setAttribute('aria-label', playing ? 'Pause animation' : 'Play animation');
+    currentDateEl.textContent = formatDate(today);
   }
 
-  setInterval(function () {
-    if (playing && current < totalDays) {
-      current++;
-      update();
-      if (current >= totalDays) setPlaying(false);
-    }
-  }, DAY_MS);
-
-  playPauseBtn.addEventListener('click', function () {
-    if (!playing && current >= totalDays) { current = 0; update(); }
-    setPlaying(!playing);
-  });
-  slider.max = String(totalDays);
-  slider.addEventListener('input', function () {
-    current = Number(slider.value);
-    update();
-  });
-
-  setPlaying(playing);
+  setInterval(update, 60000);
   update();
 })();
