@@ -8,27 +8,50 @@
   var END = Date.UTC(2028, 0, 15); // 15/01/2028 — just after the final notifications
 
   var PHASES = [
-    { iso: '2026-12-07', short: 'Call opening',
+    {
+      iso: '2026-12-07',
+      short: 'Call opening',
       title: 'Opening of Call 2027',
-      text: 'Call 2027 opens: pre-proposals can be submitted from this date.' },
-    { iso: '2027-01-30', short: 'Pre-proposal deadline',
+      text: 'Call 2027 opens: pre-proposals can be submitted from this date.'
+    },
+    {
+      iso: '2027-01-30',
+      short: 'Pre-proposal deadline',
       title: 'Pre-proposals deadline',
-      text: 'Final deadline to submit your pre-proposal for Call 2027.' },
-    { iso: '2027-03-26', short: 'Selection + LOI start',
+      text: 'Final deadline to submit your pre-proposal for Call 2027.'
+    },
+    {
+      iso: '2027-03-26',
+      short: 'Selection + LOI start',
       title: 'Notification of selected pre-proposals + start of LOI phase',
-      text: 'Applicants are notified whether their pre-proposal is selected. The Letter of Intent (LOI) phase starts.' },
-    { iso: '2027-06-05', short: 'Full proposal deadline',
+      text: 'Applicants are notified whether their pre-proposal is selected. The Letter of Intent (LOI) phase starts.'
+    },
+    {
+      iso: '2027-06-05',
+      short: 'Full proposal deadline',
       title: 'Full proposals deadline',
-      text: 'Final deadline to submit your full proposal.' },
-    { iso: '2027-09-01', short: 'LOI deadline',
+      text: 'Final deadline to submit your full proposal.'
+    },
+    {
+      iso: '2027-09-01',
+      short: 'LOI deadline',
       title: 'LOI phase deadline',
-      text: 'Deadline of the Letter of Intent (LOI) phase.' },
-    { iso: '2027-11-30', label: 'End of November 2027', short: 'ESI results (HBC)',
+      text: 'Deadline of the Letter of Intent (LOI) phase.'
+    },
+    {
+      iso: '2027-11-30',
+      label: 'End of November 2027',
+      short: 'ESI results (HBC)',
       title: 'Notification of Early Stage Innovation results',
-      text: 'Results of the Early Stage Innovation track are announced. These proposals are evaluated by HBC.' },
-    { iso: '2028-01-10', label: 'End Dec 2027 – Begin Jan 2028', short: 'LSI results (Flemish Gov.)',
+      text: 'Results of the Early Stage Innovation track are announced. These proposals are evaluated by HBC.'
+    },
+    {
+      iso: '2028-01-10',
+      label: 'End Dec 2027 – Begin Jan 2028',
+      short: 'LSI results (Flemish Gov.)',
       title: 'Notification of Later Stage Innovation results',
-      text: 'Results of the Later Stage Innovation track are announced. These proposals are evaluated by the Flemish Government.' }
+      text: 'Results of the Later Stage Innovation track are announced. These proposals are evaluated by the Flemish Government.'
+    }
   ];
 
   var IMAGE_POINTS_UP = true; // set false if assets/rocket.png points along +x instead of up
@@ -50,22 +73,31 @@
 
   function el(name, attrs) {
     var node = document.createElementNS(SVG_NS, name);
-    for (var key in attrs) node.setAttribute(key, attrs[key]);
+    for (var key in attrs) {
+      node.setAttribute(key, attrs[key]);
+    }
     return node;
   }
+
   function parseISO(s) {
     var p = s.split('-');
     return Date.UTC(Number(p[0]), Number(p[1]) - 1, Number(p[2]));
   }
-  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function pad(n) {
+    return String(n).padStart(2, '0');
+  }
+
   function formatDate(ts) {
     var d = new Date(ts);
     return pad(d.getUTCDate()) + '/' + pad(d.getUTCMonth() + 1) + '/' + d.getUTCFullYear();
   }
-  function todayUtc() {
+
+  function todayLocal() {
     var n = new Date();
-    return Date.UTC(n.getUTCFullYear(), n.getUTCMonth(), n.getUTCDate());
+    return Date.UTC(n.getFullYear(), n.getMonth(), n.getDate());
   }
+
   function guardImage(src, imageEl, fallbackEl) {
     var test = new Image();
     test.onload = function () {
@@ -82,7 +114,7 @@
   guardImage('assets/moon.png', document.getElementById('moonImage'), document.getElementById('moonFallback'));
   guardImage('assets/rocket.png', document.getElementById('rocketImage'), document.getElementById('rocketFallback'));
 
-  // Stars
+  // --- Stars ---
   for (var i = 0; i < 90; i++) {
     var star = el('circle', {
       class: 'star',
@@ -95,7 +127,7 @@
     starsG.appendChild(star);
   }
 
-  // Phase markers, labels, info badges
+  // --- Phase markers, labels and info badges ---
   var openAnchor = null;
 
   function hideTooltip() {
@@ -103,6 +135,7 @@
     tooltip.hidden = true;
     openAnchor = null;
   }
+
   function positionTooltip(anchor) {
     var r = anchor.getBoundingClientRect();
     var c = stage.getBoundingClientRect();
@@ -113,6 +146,7 @@
     tooltip.style.left = left + 'px';
     tooltip.style.top = r.top - c.top - 10 + 'px';
   }
+
   function showTooltip(phase, anchor) {
     ttDate.textContent = phase.label || formatDate(parseISO(phase.iso));
     ttTitle.textContent = phase.title;
@@ -127,17 +161,23 @@
     var len = Math.min(pathLength, Math.max(0, f * pathLength));
     var p = path.getPointAtLength(len);
     var p2 = path.getPointAtLength(Math.min(pathLength, len + 2));
-    var tx = p2.x - p.x, ty = p2.y - p.y;
+    var tx = p2.x - p.x;
+    var ty = p2.y - p.y;
     var m = Math.hypot(tx, ty) || 1;
-    tx /= m; ty /= m;
-    var nx = -ty, ny = tx;
+    tx /= m;
+    ty /= m;
+    var nx = -ty;
+    var ny = tx;
     var side = i % 2 === 0 ? 1 : -1;
 
     var g = el('g', { class: 'phase', transform: 'translate(' + p.x + ',' + p.y + ')' });
     g.appendChild(el('circle', { class: 'dot', cx: 0, cy: 0, r: 7 }));
 
     var info = el('g', {
-      class: 'info', transform: 'translate(24,0)', tabindex: '0', role: 'button',
+      class: 'info',
+      transform: 'translate(24,0)',
+      tabindex: '0',
+      role: 'button',
       'aria-label': phase.title + ' — ' + (phase.label || formatDate(parseISO(phase.iso)))
     });
     info.appendChild(el('circle', { cx: 0, cy: 0, r: 11 }));
@@ -146,11 +186,19 @@
     info.appendChild(iText);
     g.appendChild(info);
 
-    var dateText = el('text', { class: 'phase-date', x: nx * side * 46, y: ny * side * 46 });
+    var dateText = el('text', {
+      class: 'phase-date',
+      x: nx * side * 46,
+      y: ny * side * 46
+    });
     dateText.textContent = phase.label || formatDate(parseISO(phase.iso));
     g.appendChild(dateText);
 
-    var titleText = el('text', { class: 'phase-title', x: nx * side * 64, y: ny * side * 64 });
+    var titleText = el('text', {
+      class: 'phase-title',
+      x: nx * side * 64,
+      y: ny * side * 64
+    });
     titleText.textContent = phase.short;
     g.appendChild(titleText);
 
@@ -159,26 +207,33 @@
     g.addEventListener('focus', function () { showTooltip(phase, info); });
     g.addEventListener('blur', hideTooltip);
     g.addEventListener('click', function () {
-      if (openAnchor === info && tooltip.classList.contains('visible')) hideTooltip();
-      else showTooltip(phase, info);
+      if (openAnchor === info && tooltip.classList.contains('visible')) {
+        hideTooltip();
+      } else {
+        showTooltip(phase, info);
+      }
     });
 
     phasesG.appendChild(g);
   });
 
   window.addEventListener('resize', function () {
-    if (openAnchor) positionTooltip(openAnchor);
+    if (openAnchor) {
+      positionTooltip(openAnchor);
+    }
   });
 
-  // Rocket position from today's real date
+  // --- Rocket position from today's real date ---
   function update() {
-    var today = todayUtc();
+    var today = todayLocal();
     var current = Math.max(0, Math.min(totalDays, Math.floor((today - START) / MS_PER_DAY)));
     var len = (current / totalDays) * pathLength;
     var p = path.getPointAtLength(len);
     var p2 = path.getPointAtLength(Math.min(pathLength, len + 2));
     var angle = Math.atan2(p2.y - p.y, p2.x - p.x) * 180 / Math.PI;
-    if (IMAGE_POINTS_UP) angle += 90;
+    if (IMAGE_POINTS_UP) {
+      angle += 90;
+    }
     rocket.setAttribute('transform', 'translate(' + p.x + ',' + p.y + ') rotate(' + angle + ')');
     progress.setAttribute('stroke-dasharray', len + ' ' + (pathLength + 10));
     currentDateEl.textContent = formatDate(today);
