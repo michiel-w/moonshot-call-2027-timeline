@@ -142,6 +142,30 @@
     tooltip.classList.add('visible');
   }
 
+  var placedLabels = [];
+
+  function hitsCircle(x0, y0, x1, y1, cx, cy, cr) {
+    var qx = Math.max(x0, Math.min(cx, x1));
+    var qy = Math.max(y0, Math.min(cy, y1));
+    return Math.hypot(cx - qx, cy - qy) < cr;
+  }
+
+  function blockClash(lx, ly, w) {
+    var x0 = lx - w / 2;
+    var x1 = lx + w / 2;
+    var y0 = ly - 12;
+    var y1 = ly + 38;
+    if (x0 < 8 || x1 > 1192 || y0 < 8 || y1 > 712) return true;
+    if (hitsCircle(x0, y0, x1, y1, 0, 720, 150)) return true;
+    if (hitsCircle(x0, y0, x1, y1, 25, 695, 150)) return true;
+    if (hitsCircle(x0, y0, x1, y1, 1070, 120, 120)) return true;
+    for (var j = 0; j < placedLabels.length; j++) {
+      var q = placedLabels[j];
+      if (Math.abs(lx - q.lx) < (w + q.w) / 2 + 6 && Math.abs(ly - q.ly) < 44) return true;
+    }
+    return false;
+  }
+
   PHASES.forEach(function (phase, i) {
     var f = (parseISO(phase.iso) - START) / (END - START);
     var len = Math.min(pathLength, Math.max(0, f * pathLength));
@@ -154,7 +178,6 @@
     ty /= m;
     var nx = -ty;
     var ny = tx;
-    var side = i % 2 === 0 ? 1 : -1;
 
     var g = el('g', { class: 'phase', transform: 'translate(' + p.x + ',' + p.y + ')' });
     g.appendChild(el('circle', { class: 'dot', cx: 0, cy: 0, r: 8 }));
@@ -172,19 +195,41 @@
     info.appendChild(iText);
     g.appendChild(info);
 
-    var dateText = el('text', {
-      class: 'phase-date',
-      x: nx * side * 52,
-      y: ny * side * 52
-    });
+    var w = phase.short.length * 10 + 24;
+    var sidePref = i % 2 === 0 ? 1 : -1;
+    var dirs = [
+      [nx * sidePref, ny * sidePref],
+      [-nx * sidePref, -ny * sidePref],
+      [0, -1], [0, 1], [1, 0], [-1, 0]
+    ];
+    var offsets = [50, 72, 95, 120, 150];
+    var chosen = null;
+    for (var d = 0; d < dirs.length && !chosen; d++) {
+      for (var o = 0; o < offsets.length && !chosen; o++) {
+        var rx = dirs[d][0] * offsets[o];
+        var ry = dirs[d][1] * offsets[o];
+        if (!blockClash(p.x + rx, p.y + ry, w)) {
+          chosen = { rx: rx, ry: ry };
+        }
+      }
+    }
+    if (!chosen) {
+      chosen = { rx: nx * sidePref * 50, ry: ny * sidePref * 50 };
+    }
+    placedLabels.push({ lx: p.x + chosen.rx, ly: p.y + chosen.ry, w: w });
+
+    if (Math.hypot(chosen.rx, chosen.ry) > 58) {
+      g.appendChild(el('line', {
+        x1: 0, y1: 0, x2: chosen.rx, y2: chosen.ry,
+        stroke: '#fbaa00', 'stroke-width': 1.5, opacity: 0.5
+      }));
+    }
+
+    var dateText = el('text', { class: 'phase-date', x: chosen.rx, y: chosen.ry });
     dateText.textContent = phase.label || formatDate(parseISO(phase.iso));
     g.appendChild(dateText);
 
-    var titleText = el('text', {
-      class: 'phase-title',
-      x: nx * side * 72,
-      y: ny * side * 72
-    });
+    var titleText = el('text', { class: 'phase-title', x: chosen.rx, y: chosen.ry + 26 });
     titleText.textContent = phase.short;
     g.appendChild(titleText);
 

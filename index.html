@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=2">
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
   <main class="page">
@@ -53,7 +53,7 @@
 
         <!-- Rocket (logo image, with drawn fallback), positioned by script.js -->
         <g id="rocket">
-          <g id="rocketFallback">
+          <g id="rocketFallback" transform="scale(1.25)">
             <path class="flame" d="M -15 -5 L -32 0 L -15 5 Z" fill="#ff9f1a"/>
             <path d="M -15 -6 L 6 -6 L 20 0 L 6 6 L -15 6 Z" fill="#ecf0f1" stroke="#566573" stroke-width="1"/>
             <path d="M 6 -6 L 20 0 L 6 6 Z" fill="#fbaa00"/>
@@ -61,7 +61,7 @@
             <path d="M -15 6 L -23 13 L -12 6 Z" fill="#fbaa00"/>
             <circle cx="0" cy="0" r="3.4" fill="#74b9ff" stroke="#2e86c1" stroke-width="1.2"/>
           </g>
-          <image id="rocketImage" href="assets/rocket.png" x="-26" y="-26" width="52" height="52"
+          <image id="rocketImage" href="assets/rocket.png" x="-32" y="-32" width="64" height="64"
                  preserveAspectRatio="xMidYMid meet" style="display:none"/>
         </g>
       </svg>
@@ -74,6 +74,6 @@
     </div>
   </main>
 
-  <script src="script.js?v=2"></script>
+  <script src="script.js?v=3"></script>
 </body>
 </html>
