@@ -4,9 +4,9 @@
 
 body {
   margin: 0;
-  font-family: "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
-  background: #04060f;
-  color: #eaf0f8;
+  font-family: "League Spartan", "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+  background: #081826;
+  color: #DDDDDD;
 }
 
 .page {
@@ -18,12 +18,14 @@ body {
 .page-header h1 {
   margin: 0 0 6px;
   font-size: 1.7rem;
+  font-weight: 700;
   letter-spacing: 0.02em;
+  color: #FFFFFF;
 }
 
 .subtitle {
   margin: 0;
-  color: #c8d6e5;
+  color: #B9C6CE;
   font-size: 0.95rem;
 }
 
@@ -32,9 +34,9 @@ body {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: #0b1530;
-  color: #7fb3ff;
-  border: 1px solid #7fb3ff;
+  background: #19445F;
+  color: #2AB29C;
+  border: 1px solid #2AB29C;
   align-items: center;
   justify-content: center;
   font-size: 11px;
@@ -43,62 +45,51 @@ body {
   vertical-align: -3px;
 }
 
-.controls {
+.today-bar {
   display: flex;
-  align-items: center;
-  gap: 16px;
+  align-items: baseline;
+  gap: 10px;
   flex-wrap: wrap;
   margin: 20px 0 14px;
 }
 
-.btn {
-  background: #0b1530;
-  color: #eaf0f8;
-  border: 1px solid #33507e;
-  border-radius: 8px;
-  padding: 8px 14px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  min-width: 96px;
-}
-
-.btn:hover,
-.btn:focus-visible {
-  background: #14224a;
-  border-color: #7fb3ff;
-  outline: none;
-}
-
-.controls input[type="range"] {
-  flex: 1;
-  min-width: 160px;
-  accent-color: #f1c40f;
+.today-label {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  color: #2AB29C;
 }
 
 .current-date {
   font-variant-numeric: tabular-nums;
   font-weight: 700;
-  color: #f1c40f;
-  min-width: 92px;
-  text-align: right;
+  font-size: 1.05rem;
+  color: #FFFFFF;
+}
+
+.today-hint {
+  color: #8FA3BD;
+  font-size: 0.8rem;
 }
 
 .stage {
   position: relative;
-  border: 1px solid #1c2b4a;
+  border: 1px solid #19445F;
   border-radius: 16px;
   overflow: hidden;
-  background: #04060f;
+  background: #081826;
 }
 
 .stage svg {
   display: block;
   width: 100%;
   height: auto;
+  font-family: inherit;
 }
 
 .star {
-  fill: #ffffff;
+  fill: #FFFFFF;
   animation: twinkle 3s infinite ease-in-out;
 }
 
@@ -112,19 +103,19 @@ body {
 }
 
 .phase .dot {
-  fill: #f1c40f;
-  stroke: #04060f;
+  fill: #2AB29C;
+  stroke: #081826;
   stroke-width: 2;
 }
 
 .phase .info circle {
-  fill: #0b1530;
-  stroke: #7fb3ff;
+  fill: #19445F;
+  stroke: #2AB29C;
   stroke-width: 1.5;
 }
 
 .phase .info text {
-  fill: #7fb3ff;
+  fill: #2AB29C;
   font-size: 13px;
   font-weight: 700;
   font-style: italic;
@@ -135,13 +126,13 @@ body {
 .phase:hover .info circle,
 .phase:focus .info circle,
 .phase:focus-visible .info circle {
-  fill: #7fb3ff;
+  fill: #2AB29C;
 }
 
 .phase:hover .info text,
 .phase:focus .info text,
 .phase:focus-visible .info text {
-  fill: #0b1530;
+  fill: #081826;
 }
 
 .phase:focus {
@@ -149,23 +140,24 @@ body {
 }
 
 .phase-date {
-  fill: #f1c40f;
-  font-size: 14px;
+  fill: #2AB29C;
+  font-size: 15px;
   font-weight: 700;
   text-anchor: middle;
   dominant-baseline: middle;
   paint-order: stroke;
-  stroke: #04060f;
+  stroke: #081826;
   stroke-width: 3;
 }
 
 .phase-title {
-  fill: #c8d6e5;
+  fill: #DDDDDD;
   font-size: 12px;
+  font-weight: 500;
   text-anchor: middle;
   dominant-baseline: middle;
   paint-order: stroke;
-  stroke: #04060f;
+  stroke: #081826;
   stroke-width: 3;
 }
 
@@ -173,8 +165,8 @@ body {
   position: absolute;
   z-index: 5;
   max-width: 280px;
-  background: #0e1830;
-  border: 1px solid #33507e;
+  background: #12283A;
+  border: 1px solid #2AB29C;
   border-radius: 10px;
   padding: 10px 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
@@ -189,19 +181,20 @@ body {
 }
 
 .tt-date {
-  color: #f1c40f;
+  color: #2AB29C;
   font-weight: 700;
   font-size: 13px;
 }
 
 .tt-title {
+  color: #FFFFFF;
   font-weight: 700;
   font-size: 14px;
   margin: 2px 0 4px;
 }
 
 .tt-text {
-  color: #c8d6e5;
+  color: #B9C6CE;
   font-size: 13px;
   line-height: 1.45;
 }
@@ -219,7 +212,7 @@ body {
 
 .page-footer {
   margin-top: 14px;
-  color: #8fa3bd;
+  color: #8FA3BD;
   font-size: 0.8rem;
 }
 
