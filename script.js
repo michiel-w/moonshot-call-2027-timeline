@@ -54,7 +54,7 @@
     }
   ];
 
-  var IMAGE_POINTS_UP = true; // set false if assets/rocket.png points along +x instead of up
+  var ROCKET_IMAGE_OFFSET_DEG = 45; // assets/rocket.png points diagonally up-right
 
   var path = document.getElementById('trajectory');
   var progress = document.getElementById('progress');
@@ -111,7 +111,7 @@
     test.src = src;
   }
 
-  guardImage('assets/moon.png', document.getElementById('moonImage'), document.getElementById('moonFallback'));
+  guardImage('assets/moon.webp', document.getElementById('moonImage'), document.getElementById('moonFallback'));
   guardImage('assets/rocket.png', document.getElementById('rocketImage'), document.getElementById('rocketFallback'));
 
   // --- Stars ---
@@ -231,9 +231,7 @@
     var p = path.getPointAtLength(len);
     var p2 = path.getPointAtLength(Math.min(pathLength, len + 2));
     var angle = Math.atan2(p2.y - p.y, p2.x - p.x) * 180 / Math.PI;
-    if (IMAGE_POINTS_UP) {
-      angle += 90;
-    }
+    angle += ROCKET_IMAGE_OFFSET_DEG;
     rocket.setAttribute('transform', 'translate(' + p.x + ',' + p.y + ') rotate(' + angle + ')');
     progress.setAttribute('stroke-dasharray', len + ' ' + (pathLength + 10));
     currentDateEl.textContent = formatDate(today);

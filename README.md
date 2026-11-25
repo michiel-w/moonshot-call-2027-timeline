@@ -15,7 +15,7 @@ details.
 - `index.html` — page markup and the SVG scene (Earth, Moon, flag, trajectory, rocket)
 - `style.css` — League Spartan styling, brand colours, tooltips, animations
 - `script.js` — phase data, date-driven rocket position, hover tooltips
-- `assets/moon.png` — moon image (optional; a drawn moon is used as fallback)
+- `assets/moon.webp` — moon image (optional; a drawn moon is used as fallback)
 - `assets/rocket.png` — rocket from the Moonshot logo (optional; a drawn rocket is used as fallback)
 
 No build step and no dependencies — plain static files. The font is loaded from
@@ -26,7 +26,7 @@ Google Fonts, so the page needs internet access once to fetch League Spartan.
 Download the official Moonshot logo (which contains the rocket) from the
 [communication guidelines page](https://www.moonshotflanders.be/en/about/communication-guidelines)
 ("Download logos as zip file" at the bottom), extract the rocket as
-`assets/rocket.png`, and place your moon image at `assets/moon.png`.
+`assets/rocket.png`, and place your moon image at `assets/moon.webp` (WebP).
 Brand colours: `#2AB29C`, `#19445F`, `#DDDDDD`.
 
 ## Run locally
@@ -50,5 +50,5 @@ Edit the `PHASES` array at the top of `script.js`. Each entry has:
 - `short` — short label shown next to the dot
 - `title` / `text` — shown in the hover tooltip
 
-`START` and `END` (animation window) and `IMAGE_POINTS_UP` (rocket image
-orientation) are also at the top of `script.js`.
+`START`, `END` and `ROCKET_IMAGE_OFFSET_DEG` (rocket rotation; 45 because the logo
+rocket points diagonally up-right) are also at the top of `script.js`.
