@@ -11,54 +11,24 @@
 </head>
 <body>
   <main class="page">
-    <header class="page-header">
-      <h1>Moonshot Flanders · Call 2027</h1>
-      <p class="subtitle">
-        From Earth to the Moon: the key dates of Call 2027.
-        Hover or tap the <span class="i-badge">i</span> icons for details about each phase.
-      </p>
-    </header>
-
-    <section class="today-bar" aria-label="Current position">
-      <span class="today-label">Today</span>
-      <span id="currentDate" class="current-date">—</span>
-      <span class="today-hint">the rocket is where today's date falls on the trajectory</span>
-    </section>
-
     <div id="stage" class="stage">
+      <div class="today-badge">
+        <span class="today-label">TODAY</span>
+        <span id="currentDate" class="current-date">—</span>
+      </div>
+
       <svg id="scene" viewBox="0 0 1200 720" role="img"
            aria-label="Rocket trajectory from Earth to the Moon, with the phases of Call 2027 marked along the path">
-        <defs>
-          <radialGradient id="bgGlow" cx="50%" cy="45%" r="75%">
-            <stop offset="0%" stop-color="#19445F"/>
-            <stop offset="100%" stop-color="#081826"/>
-          </radialGradient>
-          <clipPath id="earthClip">
-            <circle cx="140" cy="625" r="105"/>
-          </clipPath>
-        </defs>
+        <rect width="1200" height="720" fill="#FFFFFF"/>
 
-        <rect width="1200" height="720" fill="url(#bgGlow)"/>
-        <g id="stars"></g>
-
-        <!-- Earth: overlapping green circles, bottom left corner -->
+        <!-- Earth: two partially overlapping circles, bottom left corner -->
         <g id="earth">
-          <circle cx="140" cy="625" r="114" fill="#2AB29C" opacity="0.12"/>
-          <circle cx="140" cy="625" r="105" fill="#19445F"/>
-          <g clip-path="url(#earthClip)">
-            <circle cx="100" cy="595" r="58" fill="#2AB29C" opacity="0.9"/>
-            <circle cx="172" cy="655" r="62" fill="#2AB29C" opacity="0.75"/>
-            <circle cx="188" cy="580" r="36" fill="#7FD1C6" opacity="0.85"/>
-            <circle cx="110" cy="668" r="44" fill="#1E8A78" opacity="0.9"/>
-            <circle cx="148" cy="612" r="27" fill="#2AB29C" opacity="0.6"/>
-            <circle cx="86" cy="635" r="23" fill="#7FD1C6" opacity="0.6"/>
-          </g>
-          <circle cx="140" cy="625" r="105" fill="none" stroke="#2AB29C" stroke-width="3" opacity="0.5"/>
+          <circle cx="105" cy="615" r="95" fill="#b8ddd1" opacity="0.5"/>
+          <circle cx="195" cy="668" r="78" fill="#b8ddd1" opacity="0.5"/>
         </g>
 
-        <!-- Moon (image, with drawn fallback), top right, plus red flag -->
+        <!-- Moon image, top right (drawn moon as fallback) -->
         <g id="moon">
-          <circle cx="1070" cy="120" r="86" fill="#DDDDDD" opacity="0.12"/>
           <g id="moonFallback">
             <circle cx="1070" cy="120" r="75" fill="#DDDDDD"/>
             <circle cx="1045" cy="95" r="13" fill="#B8B8B8"/>
@@ -66,22 +36,17 @@
             <circle cx="1060" cy="153" r="7" fill="#B8B8B8"/>
             <circle cx="1101" cy="97" r="6" fill="#C4C4C4"/>
             <circle cx="1037" cy="127" r="5" fill="#C4C4C4"/>
-            <circle cx="1070" cy="120" r="75" fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0.6"/>
           </g>
-          <image id="moonImage" href="assets/moon.webp" x="995" y="45" width="150" height="150"
+          <image id="moonImage" href="assets/moon.webp" x="950" y="0" width="240" height="240"
                  preserveAspectRatio="xMidYMid meet" style="display:none"/>
-          <g id="flag">
-            <line x1="1070" y1="46" x2="1070" y2="8" stroke="#DDDDDD" stroke-width="3"/>
-            <path d="M 1070 8 L 1104 16 L 1070 24 Z" fill="#E30613"/>
-          </g>
         </g>
 
         <!-- Dotted trajectory from Earth to Moon -->
-        <path id="trajectory" d="M 214 551 Q 620 55 1000 185" fill="none"
-              stroke="#DDDDDD" stroke-width="4" stroke-linecap="round"
-              stroke-dasharray="0.1 14" opacity="0.9"/>
-        <path id="progress" d="M 214 551 Q 620 55 1000 185" fill="none"
-              stroke="#2AB29C" stroke-width="4" stroke-linecap="round"
+        <path id="trajectory" d="M 200 540 Q 620 55 975 205" fill="none"
+              stroke="#54b897" stroke-width="4" stroke-linecap="round"
+              stroke-dasharray="0.1 14"/>
+        <path id="progress" d="M 200 540 Q 620 55 975 205" fill="none"
+              stroke="#54b897" stroke-width="4" stroke-linecap="round"
               stroke-dasharray="0 100000"/>
 
         <g id="phases"></g>
@@ -91,9 +56,9 @@
           <g id="rocketFallback">
             <path class="flame" d="M -15 -5 L -32 0 L -15 5 Z" fill="#ff9f1a"/>
             <path d="M -15 -6 L 6 -6 L 20 0 L 6 6 L -15 6 Z" fill="#ecf0f1" stroke="#566573" stroke-width="1"/>
-            <path d="M 6 -6 L 20 0 L 6 6 Z" fill="#E30613"/>
-            <path d="M -15 -6 L -23 -13 L -12 -6 Z" fill="#E30613"/>
-            <path d="M -15 6 L -23 13 L -12 6 Z" fill="#E30613"/>
+            <path d="M 6 -6 L 20 0 L 6 6 Z" fill="#fbaa00"/>
+            <path d="M -15 -6 L -23 -13 L -12 -6 Z" fill="#fbaa00"/>
+            <path d="M -15 6 L -23 13 L -12 6 Z" fill="#fbaa00"/>
             <circle cx="0" cy="0" r="3.4" fill="#74b9ff" stroke="#2e86c1" stroke-width="1.2"/>
           </g>
           <image id="rocketImage" href="assets/rocket.png" x="-26" y="-26" width="52" height="52"
@@ -107,10 +72,6 @@
         <div class="tt-text"></div>
       </div>
     </div>
-
-    <footer class="page-footer">
-      <p>Rocket position = today's date between the opening of Call 2027 (07/12/2026) and the final notifications (end Dec 2027 – begin Jan 2028).</p>
-    </footer>
   </main>
 
   <script src="script.js"></script>

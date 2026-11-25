@@ -59,7 +59,6 @@
   var path = document.getElementById('trajectory');
   var progress = document.getElementById('progress');
   var phasesG = document.getElementById('phases');
-  var starsG = document.getElementById('stars');
   var rocket = document.getElementById('rocket');
   var stage = document.getElementById('stage');
   var tooltip = document.getElementById('tooltip');
@@ -113,19 +112,6 @@
 
   guardImage('assets/moon.webp', document.getElementById('moonImage'), document.getElementById('moonFallback'));
   guardImage('assets/rocket.png', document.getElementById('rocketImage'), document.getElementById('rocketFallback'));
-
-  // --- Stars ---
-  for (var i = 0; i < 90; i++) {
-    var star = el('circle', {
-      class: 'star',
-      cx: (Math.random() * 1200).toFixed(1),
-      cy: (Math.random() * 720).toFixed(1),
-      r: (0.6 + Math.random() * 1.2).toFixed(2)
-    });
-    star.style.animationDelay = (Math.random() * 3).toFixed(2) + 's';
-    star.style.animationDuration = (2 + Math.random() * 3).toFixed(2) + 's';
-    starsG.appendChild(star);
-  }
 
   // --- Phase markers, labels and info badges ---
   var openAnchor = null;

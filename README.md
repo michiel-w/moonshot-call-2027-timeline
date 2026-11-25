@@ -1,14 +1,14 @@
 # Moonshot Flanders — Call 2027 Timeline
 
 A self-contained HTML/CSS/JavaScript timeline of the key dates of the Moonshot
-Flanders Call 2027, styled with the Moonshot/Catalisti brand (League Spartan font,
-`#2AB29C` jungle green, `#19445F` biscay, `#DDDDDD` alto). A rocket travels along a
-dotted trajectory from Earth (bottom left, overlapping green circles) to the Moon
-(top right, with a red flag). The rocket's position is driven by **today's real
-date**: on 30/01/2027 it sits on the pre-proposal deadline dot, on 01/05/2027
-between "selection + LOI start" and "full proposal deadline". Each phase of the
-call is marked with a dot and an **i** info icon — hover, focus or tap it for
-details.
+Flanders Call 2027 on a white background (League Spartan font). A rocket travels
+along a dotted `#54b897` trajectory from Earth (bottom left: two partially
+overlapping `#b8ddd1` circles at 50% opacity) to the Moon (top right, photo asset).
+The rocket's position is driven by **the visitor's local date** (shown as a TODAY
+badge in the top-left corner of the frame): on 30/01/2027 it sits on the
+pre-proposal deadline dot, on 01/05/2027 between "selection + LOI start" and "full
+proposal deadline". Each phase is marked with an orange `#fbaa00` dot and date,
+plus an **i** info icon — hover, focus or tap it for details.
 
 ## Files
 

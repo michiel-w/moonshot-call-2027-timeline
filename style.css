@@ -5,80 +5,22 @@
 body {
   margin: 0;
   font-family: "League Spartan", "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
-  background: #081826;
-  color: #DDDDDD;
+  background: #FFFFFF;
+  color: #19445F;
 }
 
 .page {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 28px 20px 48px;
-}
-
-.page-header h1 {
-  margin: 0 0 6px;
-  font-size: 1.7rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  color: #FFFFFF;
-}
-
-.subtitle {
-  margin: 0;
-  color: #B9C6CE;
-  font-size: 0.95rem;
-}
-
-.i-badge {
-  display: inline-flex;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #19445F;
-  color: #2AB29C;
-  border: 1px solid #2AB29C;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  font-weight: 700;
-  font-style: italic;
-  vertical-align: -3px;
-}
-
-.today-bar {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin: 20px 0 14px;
-}
-
-.today-label {
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.8rem;
-  color: #2AB29C;
-}
-
-.current-date {
-  font-variant-numeric: tabular-nums;
-  font-weight: 700;
-  font-size: 1.05rem;
-  color: #FFFFFF;
-}
-
-.today-hint {
-  color: #8FA3BD;
-  font-size: 0.8rem;
+  padding: 20px;
 }
 
 .stage {
   position: relative;
-  border: 1px solid #19445F;
+  border: 1px solid #DDDDDD;
   border-radius: 16px;
   overflow: hidden;
-  background: #081826;
+  background: #FFFFFF;
 }
 
 .stage svg {
@@ -88,14 +30,28 @@ body {
   font-family: inherit;
 }
 
-.star {
-  fill: #FFFFFF;
-  animation: twinkle 3s infinite ease-in-out;
+.today-badge {
+  position: absolute;
+  top: 16px;
+  left: 18px;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
 }
 
-@keyframes twinkle {
-  0%, 100% { opacity: 0.15; }
-  50% { opacity: 0.9; }
+.today-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #54b897;
+}
+
+.current-date {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #19445F;
+  font-variant-numeric: tabular-nums;
 }
 
 .phase {
@@ -103,19 +59,19 @@ body {
 }
 
 .phase .dot {
-  fill: #2AB29C;
-  stroke: #081826;
+  fill: #fbaa00;
+  stroke: #FFFFFF;
   stroke-width: 2;
 }
 
 .phase .info circle {
-  fill: #19445F;
-  stroke: #2AB29C;
+  fill: #FFFFFF;
+  stroke: #fbaa00;
   stroke-width: 1.5;
 }
 
 .phase .info text {
-  fill: #2AB29C;
+  fill: #fbaa00;
   font-size: 13px;
   font-weight: 700;
   font-style: italic;
@@ -126,13 +82,13 @@ body {
 .phase:hover .info circle,
 .phase:focus .info circle,
 .phase:focus-visible .info circle {
-  fill: #2AB29C;
+  fill: #fbaa00;
 }
 
 .phase:hover .info text,
 .phase:focus .info text,
 .phase:focus-visible .info text {
-  fill: #081826;
+  fill: #FFFFFF;
 }
 
 .phase:focus {
@@ -140,24 +96,24 @@ body {
 }
 
 .phase-date {
-  fill: #2AB29C;
+  fill: #fbaa00;
   font-size: 15px;
   font-weight: 700;
   text-anchor: middle;
   dominant-baseline: middle;
   paint-order: stroke;
-  stroke: #081826;
+  stroke: #FFFFFF;
   stroke-width: 3;
 }
 
 .phase-title {
-  fill: #DDDDDD;
+  fill: #19445F;
   font-size: 12px;
   font-weight: 500;
   text-anchor: middle;
   dominant-baseline: middle;
   paint-order: stroke;
-  stroke: #081826;
+  stroke: #FFFFFF;
   stroke-width: 3;
 }
 
@@ -165,11 +121,11 @@ body {
   position: absolute;
   z-index: 5;
   max-width: 280px;
-  background: #12283A;
-  border: 1px solid #2AB29C;
+  background: #FFFFFF;
+  border: 1px solid #54b897;
   border-radius: 10px;
   padding: 10px 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
+  box-shadow: 0 8px 24px rgba(25, 68, 95, 0.18);
   transform: translate(-50%, -100%);
   opacity: 0;
   pointer-events: none;
@@ -181,20 +137,20 @@ body {
 }
 
 .tt-date {
-  color: #2AB29C;
+  color: #fbaa00;
   font-weight: 700;
   font-size: 13px;
 }
 
 .tt-title {
-  color: #FFFFFF;
+  color: #19445F;
   font-weight: 700;
   font-size: 14px;
   margin: 2px 0 4px;
 }
 
 .tt-text {
-  color: #B9C6CE;
+  color: #4A5A66;
   font-size: 13px;
   line-height: 1.45;
 }
@@ -210,15 +166,8 @@ body {
   to { transform: scaleX(1.2); }
 }
 
-.page-footer {
-  margin-top: 14px;
-  color: #8FA3BD;
-  font-size: 0.8rem;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .flame,
-  .star {
+  .flame {
     animation: none;
   }
 }
