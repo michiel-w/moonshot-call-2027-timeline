@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moonshot Flanders — Call 2027 Timeline</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page">
+    <header class="page-header">
+      <h1>Moonshot Flanders · Call 2027</h1>
+      <p class="subtitle">
+        From Earth to the Moon: the key dates of Call 2027.
+        Hover or tap the <span class="i-badge">i</span> icons for details about each phase.
+      </p>
+    </header>
+
+    <section class="controls" aria-label="Timeline controls">
+      <button id="playPause" class="btn" type="button" aria-label="Pause animation">⏸ Pause</button>
+      <input id="daySlider" type="range" min="0" max="404" value="0" step="1"
+             aria-label="Scrub through the call timeline">
+      <span id="currentDate" class="current-date">07/12/2026</span>
+    </section>
+
+    <div id="stage" class="stage">
+      <svg id="scene" viewBox="0 0 1200 720" role="img"
+           aria-label="Rocket trajectory from Earth to the Moon, with the phases of Call 2027 marked along the path">
+        <defs>
+          <radialGradient id="bgGlow" cx="50%" cy="45%" r="75%">
+            <stop offset="0%" stop-color="#101a3a"/>
+            <stop offset="100%" stop-color="#04060f"/>
+          </radialGradient>
+          <clipPath id="earthClip">
+            <circle cx="160" cy="600" r="95"/>
+          </clipPath>
+        </defs>
+
+        <rect width="1200" height="720" fill="url(#bgGlow)"/>
+        <g id="stars"></g>
+
+        <!-- Earth: overlapping green circles, bottom left -->
+        <g id="earth">
+          <circle cx="160" cy="600" r="106" fill="#2ecc71" opacity="0.12"/>
+          <circle cx="160" cy="600" r="95" fill="#1e8449"/>
+          <g clip-path="url(#earthClip)">
+            <circle cx="120" cy="570" r="55" fill="#2ecc71" opacity="0.85"/>
+            <circle cx="190" cy="632" r="60" fill="#27ae60" opacity="0.9"/>
+            <circle cx="206" cy="560" r="34" fill="#58d68d" opacity="0.8"/>
+            <circle cx="128" cy="646" r="42" fill="#145a32" opacity="0.85"/>
+            <circle cx="166" cy="590" r="26" fill="#7dcea0" opacity="0.7"/>
+            <circle cx="104" cy="612" r="22" fill="#2ecc71" opacity="0.6"/>
+          </g>
+          <circle cx="160" cy="600" r="95" fill="none" stroke="#2ecc71" stroke-width="3" opacity="0.5"/>
+        </g>
+
+        <!-- Moon, top right -->
+        <g id="moon">
+          <circle cx="1055" cy="135" r="86" fill="#d5dbdb" opacity="0.12"/>
+          <circle cx="1055" cy="135" r="75" fill="#d5dbdb"/>
+          <circle cx="1030" cy="110" r="13" fill="#aeb6bf"/>
+          <circle cx="1078" cy="152" r="9" fill="#99a3a4"/>
+          <circle cx="1045" cy="168" r="7" fill="#aeb6bf"/>
+          <circle cx="1086" cy="112" r="6" fill="#99a3a4"/>
+          <circle cx="1022" cy="142" r="5" fill="#99a3a4"/>
+          <circle cx="1055" cy="135" r="75" fill="none" stroke="#f4f6f7" stroke-width="3" opacity="0.6"/>
+        </g>
+
+        <!-- Dotted trajectory from Earth to Moon -->
+        <path id="trajectory" d="M 235 525 Q 620 55 975 200" fill="none"
+              stroke="#aeb6bf" stroke-width="4" stroke-linecap="round"
+              stroke-dasharray="0.1 14" opacity="0.9"/>
+        <path id="progress" d="M 235 525 Q 620 55 975 200" fill="none"
+              stroke="#f1c40f" stroke-width="4" stroke-linecap="round"
+              stroke-dasharray="0 100000"/>
+
+        <g id="phases"></g>
+
+        <!-- Rocket, positioned along the trajectory by script.js -->
+        <g id="rocket">
+          <path class="flame" d="M -15 -5 L -32 0 L -15 5 Z" fill="#ff9f1a"/>
+          <path d="M -15 -6 L 6 -6 L 20 0 L 6 6 L -15 6 Z" fill="#ecf0f1" stroke="#566573" stroke-width="1"/>
+          <path d="M 6 -6 L 20 0 L 6 6 Z" fill="#e74c3c"/>
+          <path d="M -15 -6 L -23 -13 L -12 -6 Z" fill="#e74c3c"/>
+          <path d="M -15 6 L -23 13 L -12 6 Z" fill="#e74c3c"/>
+          <circle cx="0" cy="0" r="3.4" fill="#74b9ff" stroke="#2e86c1" stroke-width="1.2"/>
+        </g>
+      </svg>
+
+      <div id="tooltip" class="tooltip" role="tooltip" hidden>
+        <div class="tt-date"></div>
+        <div class="tt-title"></div>
+        <div class="tt-text"></div>
+      </div>
+    </div>
+
+    <footer class="page-footer">
+      <p>Rocket position = simulated date between the opening of Call 2027 (07/12/2026) and the final notifications (end Dec 2027 – begin Jan 2028).</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
