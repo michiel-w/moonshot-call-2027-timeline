@@ -21,10 +21,10 @@
            aria-label="Rocket trajectory from Earth to the Moon, with the phases of Call 2027 marked along the path">
         <rect width="1200" height="720" fill="#FFFFFF"/>
 
-        <!-- Earth: two partially overlapping circles, bottom left corner -->
+        <!-- Earth: two equal circles, 85% overlap, bottom left corner -->
         <g id="earth">
-          <circle cx="105" cy="615" r="95" fill="#b8ddd1" opacity="0.5"/>
-          <circle cx="195" cy="668" r="78" fill="#b8ddd1" opacity="0.5"/>
+          <circle cx="85" cy="640" r="95" fill="#b8ddd1" opacity="0.5"/>
+          <circle cx="101" cy="624" r="95" fill="#b8ddd1" opacity="0.5"/>
         </g>
 
         <!-- Moon image, top right (drawn moon as fallback) -->
@@ -42,10 +42,10 @@
         </g>
 
         <!-- Dotted trajectory from Earth to Moon -->
-        <path id="trajectory" d="M 200 540 Q 620 55 975 205" fill="none"
+        <path id="trajectory" d="M 190 545 Q 620 55 975 205" fill="none"
               stroke="#54b897" stroke-width="4" stroke-linecap="round"
               stroke-dasharray="0.1 14"/>
-        <path id="progress" d="M 200 540 Q 620 55 975 205" fill="none"
+        <path id="progress" d="M 190 545 Q 620 55 975 205" fill="none"
               stroke="#54b897" stroke-width="4" stroke-linecap="round"
               stroke-dasharray="0 100000"/>
 
