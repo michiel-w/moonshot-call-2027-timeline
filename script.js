@@ -157,33 +157,33 @@
     var side = i % 2 === 0 ? 1 : -1;
 
     var g = el('g', { class: 'phase', transform: 'translate(' + p.x + ',' + p.y + ')' });
-    g.appendChild(el('circle', { class: 'dot', cx: 0, cy: 0, r: 7 }));
+    g.appendChild(el('circle', { class: 'dot', cx: 0, cy: 0, r: 8 }));
 
     var info = el('g', {
       class: 'info',
-      transform: 'translate(24,0)',
+      transform: 'translate(28,0)',
       tabindex: '0',
       role: 'button',
       'aria-label': phase.title + ' — ' + (phase.label || formatDate(parseISO(phase.iso)))
     });
-    info.appendChild(el('circle', { cx: 0, cy: 0, r: 11 }));
-    var iText = el('text', { x: 0, y: 4.6 });
+    info.appendChild(el('circle', { cx: 0, cy: 0, r: 13 }));
+    var iText = el('text', { x: 0, y: 5.4 });
     iText.textContent = 'i';
     info.appendChild(iText);
     g.appendChild(info);
 
     var dateText = el('text', {
       class: 'phase-date',
-      x: nx * side * 46,
-      y: ny * side * 46
+      x: nx * side * 52,
+      y: ny * side * 52
     });
     dateText.textContent = phase.label || formatDate(parseISO(phase.iso));
     g.appendChild(dateText);
 
     var titleText = el('text', {
       class: 'phase-title',
-      x: nx * side * 64,
-      y: ny * side * 64
+      x: nx * side * 72,
+      y: ny * side * 72
     });
     titleText.textContent = phase.short;
     g.appendChild(titleText);
